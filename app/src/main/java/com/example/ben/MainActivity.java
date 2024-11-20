@@ -43,8 +43,16 @@ public class MainActivity extends AppCompatActivity {
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("are you sure")
                         .setMessage("are you really really sure")
-                        .setPositiveButton("ok",null)
-                        .setNegativeButton("dont", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String name1 = editTxt.getText().toString();
+                                editor.putString("username", name1);
+                                editor.apply();
+                                txt.setText(sharedPreferences.getString("username", "###"));
+                            }
+                        })
+                        .setNegativeButton("no", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 Toast.makeText(MainActivity.this, "no", Toast.LENGTH_LONG).show();
@@ -52,10 +60,7 @@ public class MainActivity extends AppCompatActivity {
                         }).show();
 
 
-                    String name1 = editTxt.getText().toString();
-                    editor.putString("username", name1);
-                    editor.apply();
-                    txt.setText(sharedPreferences.getString("username", "###"));
+
 
             }
     });
